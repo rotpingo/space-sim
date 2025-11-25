@@ -1,14 +1,16 @@
 #pragma once
 
+#include "raylib.h"
 #include "sim.h"
 
 #include <stdbool.h>
 
 typedef struct {
-    Sim sim;
+    Sim *sim;
+    Camera2D camera;
 } App;
 
-void App_Init(App *app);
+App *App_Create(void);
 bool App_ShouldClose(App *app);
 void App_Run(App *app);
-void App_Shutdown(App *app);
+void App_Destroy(App *app);

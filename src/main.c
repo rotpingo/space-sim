@@ -7,12 +7,10 @@ int main ()
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
     
     // App creation
-    App app;
+    App *app = App_Create();
 
-	// Create the window and OpenGL context
-    App_Init(&app);
-    App_Run(&app);
+    App_Run(app);
 	
-    App_Shutdown(&app);
+    App_Destroy(app);
 	return 0;
 }
