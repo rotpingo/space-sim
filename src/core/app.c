@@ -1,6 +1,7 @@
 #include "app.h"
 #include "config.h"
 #include "core/sim.h"
+#include "render/render.h"
 #include "utils/ui_helper.h"
 
 #include <raylib.h>
@@ -12,7 +13,7 @@ App *App_Create(void) {
     if (!app) {
         return NULL;
     }
-    app->sim = Sim_Create();
+    app->sim = sim_create();
     if (!app->sim) {
         free(app);
         return NULL;
@@ -33,14 +34,17 @@ void App_Run(App *app) {
 
     double elapsedTime = 0.0;
     u_int16_t timeScale = 1;
+
     while (!App_ShouldClose(app)) {
         float dt = GetFrameTime();
         elapsedTime += dt;
 
+        BeginMode2D(app->camera);
+        EndMode2D();
         BeginDrawing();
         ClearBackground(BLACK);
-
-        Sim_Render(app->sim);
+        
+        draw_sim(app->sim);
         ui_timeHelper(elapsedTime);
 
         EndDrawing();
@@ -52,7 +56,7 @@ void App_Destroy(App *app){
         return;
     }
 
-    Sim_Destroy(app->sim);
+    sim_destroy(app->sim);
     app->sim = NULL;
 
     free(app);

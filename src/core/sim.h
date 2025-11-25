@@ -1,5 +1,7 @@
 #pragma once
 
+#include "space/body.h"
+
 #include <stdbool.h>
 #include <sys/types.h>
 
@@ -8,9 +10,12 @@ typedef struct {
     int body_count; // num of bodies: planets, stars, etc.
     int max_bodies;
     bool isPaused;
-} Sim;
 
-Sim *Sim_Create(void);
-void Sim_Update(Sim *sim, float deltaTime); // Update the state with dt = time
-void Sim_Render(Sim *sim);
-void Sim_Destroy(Sim *sim);
+    body_t **bodies;
+} sim_t;
+
+sim_t *sim_create(void);
+void add_body(sim_t *sim, body_t *body); // Add a body to the simulation
+void sim_update(sim_t *sim, float deltaTime); // Update the state with dt = time
+void sim_render(sim_t *sim);
+void sim_destroy(sim_t *sim);

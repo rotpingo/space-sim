@@ -6,7 +6,7 @@
 #include <stdbool.h>
 
 typedef struct {
-    Sim *sim;
+    sim_t *sim;
     Camera2D camera;
 } App;
 
