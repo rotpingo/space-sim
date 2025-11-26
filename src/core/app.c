@@ -2,6 +2,8 @@
 #include "config.h"
 #include "core/sim.h"
 #include "render/render.h"
+#include "space/solar_system.h"
+#include "utils/camera.h"
 #include "utils/ui_helper.h"
 
 #include <raylib.h>
@@ -35,24 +37,30 @@ void App_Run(App *app) {
     double elapsedTime = 0.0;
     u_int16_t timeScale = 1;
 
+    create_solar_system(app->sim);
+
     while (!App_ShouldClose(app)) {
         float dt = GetFrameTime();
         elapsedTime += dt;
 
-        BeginMode2D(app->camera);
-        EndMode2D();
+        // Camera
+
+        // Draw
         BeginDrawing();
         ClearBackground(BLACK);
-        
+        BeginMode2D(app->camera);
         draw_sim(app->sim);
+        EndMode2D();
+
         ui_timeHelper(elapsedTime);
 
         EndDrawing();
+        camera_controls(&app->camera);
     }
 }
 
-void App_Destroy(App *app){
-    if(!app){
+void App_Destroy(App *app) {
+    if (!app) {
         return;
     }
 

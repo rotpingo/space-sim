@@ -6,7 +6,7 @@
 body_t *create_sun(void) {
 
     return new(
-        (Vector2){WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 2}, 
+        (Vector2){WINDOW_WIDTH / (float)2 , WINDOW_HEIGHT / (float)2}, 
         (Vector2){0, 0}, 
         500, 
         50, 
