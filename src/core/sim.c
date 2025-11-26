@@ -1,6 +1,4 @@
 #include "sim.h"
-#include "config.h"
-#include "raylib.h"
 #include <stdlib.h>
 
 sim_t *sim_create(void) {
@@ -11,15 +9,12 @@ sim_t *sim_create(void) {
 
     sim->sim_time = 0.0;
     sim->time_scale = 1.0;
+    sim->render_scale = 250.0f;
     sim->isPaused = false;
     sim->max_bodies = 100;
     sim->body_count = 0;
     sim->bodies = calloc(sim->max_bodies, sizeof(body_t *));
     return sim;
-}
-
-void sim_render(sim_t *sim) {
-    DrawCircle(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 50, YELLOW);
 }
 
 void add_body(sim_t *sim, body_t *body) {

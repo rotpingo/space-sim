@@ -1,4 +1,5 @@
 #include "physics.h"
+#include "raylib.h"
 #include "space/body.h"
 #include <math.h>
 
@@ -8,6 +9,7 @@ void apply_physics(sim_t *sim, double frame_dt) {
     if(sim->isPaused) return;
 
     double dt = frame_dt * sim->time_scale;
+    double const G = 4 * PI * PI;
 
     const double SOFTENING = 0.1 * 0.1; // 0.1^2;
 

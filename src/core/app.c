@@ -23,7 +23,8 @@ App *App_Create(void) {
         free(app);
         return NULL;
     }
-    app->camera = (Camera2D){.zoom = 1.0f};
+    app->camera = (Camera2D){0};
+    app->camera.zoom = 1.0f;
 
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "space simulation");
     SetTargetFPS(TARGET_FPS);
@@ -41,7 +42,7 @@ void App_Run(App *app) {
 
     while (!App_ShouldClose(app)) {
         float dt = GetFrameTime();
-        app->sim->sim_time += dt;
+        app->sim->sim_time = app->sim->sim_time + dt * app->sim->time_scale;
 
         // Draw
         BeginDrawing();

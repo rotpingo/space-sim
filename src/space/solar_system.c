@@ -1,35 +1,28 @@
-#include "config.h"
 #include "core/sim.h"
-#include "space/body.h"
 #include "raylib.h"
+#include "space/body.h"
 
 body_t *create_sun(void) {
 
-    return new(
-        (Vector2){WINDOW_WIDTH / (float)2 , WINDOW_HEIGHT / (float)2}, 
-        (Vector2){0, 0}, 
-        (Vector2){0, 0},
-        500000, 
-        50, 
-        YELLOW, 
-        "Sun"
-    );
+    double mass_solar = 1.0;
+    double sun_au_radius = 0.00465247f;
+
+    return new((Vector2){0, 0}, (Vector2){0, 0}, (Vector2){0, 0}, mass_solar,
+               sun_au_radius, YELLOW, "Sun");
 }
 
 body_t *create_earth(void) {
 
-    return new(
-        (Vector2){400, 400}, 
-        (Vector2){0, 0}, 
-        (Vector2){0, 0},
-        5, 
-        10, 
-        BLUE, 
-        "Earth"
-    );
+    // Earth mass = 1 / 332846 solar masses
+    double mass_solar = 3.003e-6;
+    double earth_au_radius = 4.2635e-5f;
+    double orbital_speed = 2.0 * PI;
+
+    return new((Vector2){1.0, 0}, (Vector2){0, orbital_speed}, (Vector2){0, 0}, mass_solar,
+               earth_au_radius, BLUE, "Earth");
 }
 
-void create_solar_system(sim_t *sim){
+void create_solar_system(sim_t *sim) {
     sim->body_count = 0;
     add_body(sim, create_sun());
     add_body(sim, create_earth());

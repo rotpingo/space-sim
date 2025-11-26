@@ -10,6 +10,7 @@ typedef struct {
     int body_count; // num of bodies: planets, stars, etc.
     int max_bodies;
     double time_scale;
+    float render_scale;
     bool isPaused;
 
     body_t **bodies;
