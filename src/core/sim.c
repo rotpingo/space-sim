@@ -8,8 +8,7 @@ sim_t *sim_create(void) {
     }
 
     sim->sim_time = 0.0;
-    sim->time_scale = 0.0166; // day per 1 real second (Earth moves ~1° per real second)
-    sim->render_scale = 250.0f;
+    sim->time_scale = 0.01;
     sim->isPaused = false;
     sim->max_bodies = 100;
     sim->body_count = 0;

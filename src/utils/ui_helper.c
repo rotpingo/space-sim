@@ -11,32 +11,22 @@ void ui_timeHelper(double time, double time_scale) {
                          Fade(RED, 0.65f));
 
     // current simulatiom time - converted to human-readable years
-    double years = time / (365.25 * 86400.0);
-
     char buffer[64];
-    if (years < 1000.00) {
-        snprintf(buffer, sizeof(buffer), "Sim time: %.3f years\n", years);
-    } else if(years < 1e6){
-        snprintf(buffer, sizeof(buffer), "Sim time: %.3f thousands years\n", years / 1e3);
-    } else if(years < 1e9){
-        snprintf(buffer, sizeof(buffer), "Sim time: %.3f million years\n", years / 1e6);
-    } else {
-        snprintf(buffer, sizeof(buffer), "Sim time: %.3f billion years\n", years / 1e9);
-    }
-    DrawText(buffer, 12, 12, 22, (years> 1e6) ? ORANGE : GREEN);
+    snprintf(buffer, sizeof(buffer), "Sim time: %.3f\n", time);
+    DrawText(buffer, 12, 12, 22, (time > 1e6) ? ORANGE : GREEN);
 
     char scale_str[64];
     Color speed_color = GREEN;
-    if(time_scale > 1e6) {
+    if (time_scale > 1e6) {
         speed_color = RED;
         snprintf(scale_str, sizeof(scale_str), "Speed: x%.f", time_scale);
-    } else if(time_scale >= 1000){
+    } else if (time_scale >= 1000) {
         speed_color = ORANGE;
         snprintf(scale_str, sizeof(scale_str), "Speed: x%.f", time_scale);
-    } else if(time_scale > 1.0){
+    } else if (time_scale > 1.0) {
         speed_color = YELLOW;
         snprintf(scale_str, sizeof(scale_str), "Speed: x%.f", time_scale);
-    } else if(time_scale > 0.01) {
+    } else if (time_scale > 0.01) {
         speed_color = SKYBLUE;
         snprintf(scale_str, sizeof(scale_str), "Speed: x%.2f", time_scale);
     } else {
@@ -45,5 +35,4 @@ void ui_timeHelper(double time, double time_scale) {
     }
 
     DrawText(scale_str, 12, 42, 28, speed_color);
-
 }
