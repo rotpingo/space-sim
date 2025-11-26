@@ -1,12 +1,15 @@
 #include "app.h"
 #include "config.h"
 #include "core/sim.h"
+#include "physics/physics.h"
 #include "render/render.h"
 #include "space/solar_system.h"
 #include "utils/camera.h"
+#include "utils/time.h"
 #include "utils/ui_helper.h"
 
 #include <raylib.h>
+
 #include <stdlib.h>
 
 App *App_Create(void) {
@@ -34,27 +37,25 @@ bool App_ShouldClose(App *app) {
 
 void App_Run(App *app) {
 
-    double elapsedTime = 0.0;
-    u_int16_t timeScale = 1;
-
     create_solar_system(app->sim);
 
     while (!App_ShouldClose(app)) {
         float dt = GetFrameTime();
-        elapsedTime += dt;
-
-        // Camera
+        app->sim->sim_time += dt;
 
         // Draw
         BeginDrawing();
+
         ClearBackground(BLACK);
         BeginMode2D(app->camera);
         draw_sim(app->sim);
+        apply_physics(app->sim, dt);
         EndMode2D();
 
-        ui_timeHelper(elapsedTime);
-
         EndDrawing();
+
+        ui_timeHelper(app->sim->sim_time, app->sim->time_scale);
+        speed_time(app->sim);
         camera_controls(&app->camera);
     }
 }

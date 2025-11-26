@@ -1,6 +1,7 @@
 #include "camera.h"
 #include "raylib.h"
 #include "raymath.h"
+#include <math.h>
 
 void camera_controls(Camera2D *camera){
     
@@ -21,12 +22,12 @@ if(IsMouseButtonDown(MOUSE_BUTTON_LEFT))
 
         // Zoom exponentially
         camera->zoom += wheel *0.2f * camera->zoom;
-        
+
         // Clamp zoom
         if(camera->zoom < 0.125f) camera->zoom = 0.125f;
         if(camera->zoom > 64.0f) camera->zoom = 64.0f;
 
-        camera->target = GetScreenToWorld2D(GetMousePosition(), *camera);
+        camera->target = mouseWorldPos;
         // Zoom increment
         // Uses log for scaling to provide consistent zoom speed
         // float scale = 0.2f* wheel;

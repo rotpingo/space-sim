@@ -8,7 +8,8 @@ body_t *create_sun(void) {
     return new(
         (Vector2){WINDOW_WIDTH / (float)2 , WINDOW_HEIGHT / (float)2}, 
         (Vector2){0, 0}, 
-        500, 
+        (Vector2){0, 0},
+        500000, 
         50, 
         YELLOW, 
         "Sun"
@@ -20,7 +21,8 @@ body_t *create_earth(void) {
     return new(
         (Vector2){400, 400}, 
         (Vector2){0, 0}, 
-        50, 
+        (Vector2){0, 0},
+        5, 
         10, 
         BLUE, 
         "Earth"

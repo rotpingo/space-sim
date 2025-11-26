@@ -6,9 +6,10 @@
 #include <sys/types.h>
 
 typedef struct {
-    double simTime; // simulation time
+    double sim_time; // simulation time
     int body_count; // num of bodies: planets, stars, etc.
     int max_bodies;
+    double time_scale;
     bool isPaused;
 
     body_t **bodies;

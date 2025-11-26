@@ -9,7 +9,8 @@ sim_t *sim_create(void) {
         return NULL;
     }
 
-    sim->simTime = 0.0;
+    sim->sim_time = 0.0;
+    sim->time_scale = 1.0;
     sim->isPaused = false;
     sim->max_bodies = 100;
     sim->body_count = 0;
