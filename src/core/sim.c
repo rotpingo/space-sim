@@ -7,8 +7,8 @@ sim_t *sim_create(void) {
         return NULL;
     }
 
-    sim->sim_time = 0.0;
-    sim->time_scale = 0.01;
+    sim->sim_time = 0;
+    sim->time_scale = 1.0;
     sim->isPaused = false;
     sim->max_bodies = 100;
     sim->body_count = 0;

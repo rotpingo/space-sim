@@ -37,12 +37,13 @@ bool App_ShouldClose(App *app) {
 }
 
 void App_Run(App *app) {
-
     create_solar_system(app->sim);
+    const double PHYSICS_DT = 0.001;
 
     while (!App_ShouldClose(app)) {
         float dt = GetFrameTime();
-        app->sim->sim_time = app->sim->sim_time + dt * app->sim->time_scale;
+        app->sim->sim_time += dt * app->sim->time_scale;
+        // app->sim->sim_time = app->sim->sim_time + dt * app->sim->time_scale;
 
         // Draw
         BeginDrawing();
@@ -50,7 +51,7 @@ void App_Run(App *app) {
         ClearBackground(BLACK);
         BeginMode2D(app->camera);
         draw_sim(app->sim);
-        apply_physics(app->sim, dt);
+        apply_physics(app->sim, PHYSICS_DT);
         EndMode2D();
 
         EndDrawing();

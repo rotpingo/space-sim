@@ -4,16 +4,16 @@
 void speed_time(sim_t *sim) {
 
     if (IsKeyDown(KEY_RIGHT)) {
-        sim->time_scale *= 1.05;
+        sim->time_scale += 10;
     }
     if (IsKeyDown(KEY_LEFT)) {
-        sim->time_scale *= 0.95;
+        sim->time_scale -= 10;
     }
-    if (IsKeyDown(KEY_UP)) {
-        sim->time_scale *= 1.01;
+    if (IsKeyPressed(KEY_UP)) {
+        sim->time_scale += 1;
     }
-    if (IsKeyDown(KEY_DOWN)) {
-        sim->time_scale *= 0.99;
+    if (IsKeyPressed(KEY_DOWN)) {
+        sim->time_scale -= 1;
     }
 
     if (sim->time_scale <= 0.0001) {

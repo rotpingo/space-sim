@@ -12,7 +12,7 @@ void ui_timeHelper(double time, double time_scale) {
 
     // current simulatiom time - converted to human-readable years
     char buffer[64];
-    snprintf(buffer, sizeof(buffer), "Sim time: %.3f\n", time);
+    snprintf(buffer, sizeof(buffer), "Sim time: %.f\n", time);
     DrawText(buffer, 12, 12, 22, (time > 1e6) ? ORANGE : GREEN);
 
     char scale_str[64];

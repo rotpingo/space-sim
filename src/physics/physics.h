@@ -7,6 +7,7 @@
 // #define G (39.4784176)
 
 // #define G 6.67430e-11
+#define G 4*PI*PI
 
 //1 AU in meters
 #define AU (149597870700.0)

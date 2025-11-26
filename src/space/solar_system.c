@@ -1,6 +1,8 @@
 #include "core/sim.h"
 #include "raylib.h"
 #include "space/body.h"
+#include "physics/physics.h"
+
 #include <math.h>
 
 body_t *create_sun(void) {
@@ -34,19 +36,30 @@ body_t *create_mars(void) {
                (Vector2){0, 0}, mass_solar, mars_au_radius, MAROON, "Mars");
 }
 
-body_t *create_moon(void) {
+body_t *create_moon(body_t *b) {
 
     double distance_from_earth_au = 0.00256956;
-
     double moon_orbital_period_years = 27.3217 / 365.25;
-    double moon_speed_au_per_year = 2.0 * PI / moon_orbital_period_years;
+
+    double moon_speed_relative = sqrt(G * b->mass / distance_from_earth_au);
+
+
+    Vector2 moon_pos = {b->pos.x + distance_from_earth_au, b->pos.y};
+
+    // Vector from planet to moon
+    double dx = moon_pos.x - b->pos.x;
+    double dy = moon_pos.y - b->pos.y;
+    double r = sqrt(dx * dx + dy + dy);
+
+    // Tangential velocity (perpendicular to radius, counter clock-wise)
+    Vector2 tangential = {-dy / r * moon_speed_relative, dx / r * moon_speed_relative};
+
+    // Moon Velocity = planet velocity + tangential velocity
+    Vector2 moon_vel = {b->vel.x + tangential.x, b->vel.y + tangential.y};
 
     double mass_solar = 3.69e-8;
     double moon_au_radius = 1.162e-5f;
 
-    Vector2 moon_pos = {1.0 + distance_from_earth_au, 0.0};
-
-    Vector2 moon_vel = {0.0, 2.0 * PI + moon_speed_au_per_year};
 
     return new(moon_pos, moon_vel, (Vector2){0, 0}, mass_solar, moon_au_radius,
                LIGHTGRAY, "Moon");
@@ -57,5 +70,5 @@ void create_solar_system(sim_t *sim) {
     add_body(sim, create_sun());
     add_body(sim, create_earth());
     add_body(sim, create_mars());
-    add_body(sim, create_moon());
+    add_body(sim, create_moon(sim->bodies[1]));
 }
