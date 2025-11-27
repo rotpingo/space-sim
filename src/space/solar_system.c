@@ -65,10 +65,22 @@ body_t *create_moon(body_t *b) {
                LIGHTGRAY, "Moon");
 }
 
+body_t *create_jupiter(void){
+    
+    double orbital_speed = 13.06;
+    double distance_au = 5.2;
+    double mass_solar = 9.55e-4;
+
+    double radius_au = 4.67e-4;
+
+    return new((Vector2){distance_au, 0},(Vector2){0, orbital_speed}, (Vector2){0,0}, mass_solar, radius_au, ORANGE, "Jupiter");
+}
+
 void create_solar_system(sim_t *sim) {
     sim->body_count = 0;
     add_body(sim, create_sun());
     add_body(sim, create_earth());
     add_body(sim, create_mars());
     add_body(sim, create_moon(sim->bodies[1]));
+    add_body(sim, create_jupiter());
 }

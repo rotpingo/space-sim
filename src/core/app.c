@@ -38,7 +38,7 @@ bool App_ShouldClose(App *app) {
 
 void App_Run(App *app) {
     create_solar_system(app->sim);
-    const double PHYSICS_DT = 0.001;
+    const double PHYSICS_DT = 0.0001;
 
     while (!App_ShouldClose(app)) {
         float dt = GetFrameTime();
