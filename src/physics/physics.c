@@ -3,11 +3,13 @@
 #include "space/body.h"
 
 #include <math.h>
+#include <stdio.h>
 
 void apply_physics(sim_t *sim, double frame_dt) {
 
     // if paused -> do nothing
-    if(sim->isPaused) return;
+    if (sim->isPaused)
+        return;
 
     double dt = frame_dt * sim->time_scale;
 
@@ -39,8 +41,8 @@ void apply_physics(sim_t *sim, double frame_dt) {
             double inv_r_cubed = inv_r * inv_r * inv_r;
 
             /* Acceleration contribution on body i caused by body j
-             * F = G * mass_j / r^2 -> a = F/mass_i = G * mass_j / r^2 * dx or dy
-             * Direction = dx, dy
+             * F = G * mass_j / r^2 -> a = F/mass_i = G * mass_j / r^2 * dx or
+             * dy Direction = dx, dy
              */
 
             double ax_i = G * sim->bodies[j]->mass * inv_r_cubed * dx;
@@ -58,6 +60,12 @@ void apply_physics(sim_t *sim, double frame_dt) {
 
             sim->bodies[j]->acc.x += ax_j;
             sim->bodies[j]->acc.y += ay_j;
+
+            if (j == 1) {
+                printf("Jupiter accX: %f\n", sim->bodies[j]->vel.x);
+                printf("Jupiter accY: %f\n", sim->bodies[j]->vel.y);
+            }
+
         }
     }
 
@@ -65,7 +73,7 @@ void apply_physics(sim_t *sim, double frame_dt) {
     // using Semi-implicit Euler (velocity first, then posiiton)
     // much more stable than basic Euler
 
-    for (int i = 0; i <sim->body_count; i++){
+    for (int i = 0; i < sim->body_count; i++) {
         body_t *b = sim->bodies[i];
 
         // vel = vel + acc * dt
@@ -77,4 +85,3 @@ void apply_physics(sim_t *sim, double frame_dt) {
         b->pos.y += b->vel.y * dt;
     }
 }
-

@@ -4,7 +4,7 @@
 
 void draw_sim(sim_t *sim) {
 
-    const float AU_TO_PIXELS = 300.0f;
+    const float AU_TO_PIXELS = 100.0f;
 
     float render_scale = 25.0f;
     Vector2 center = {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};

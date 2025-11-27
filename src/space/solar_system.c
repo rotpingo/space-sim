@@ -66,6 +66,9 @@ body_t *create_moon(body_t *b) {
 }
 
 body_t *create_jupiter(void){
+
+    Vector2 perihelion = {4.95f, 0.0f};
+    Vector2 aphelion = {5.46f, 0.0f};
     
     double orbital_speed = 13.06;
     double distance_au = 5.2;
@@ -73,7 +76,8 @@ body_t *create_jupiter(void){
 
     double radius_au = 4.67e-4;
 
-    return new((Vector2){distance_au, 0},(Vector2){0, orbital_speed}, (Vector2){0,0}, mass_solar, radius_au, ORANGE, "Jupiter");
+    // return new((Vector2){distance_au, 0},(Vector2){0, orbital_speed}, (Vector2){0,0}, mass_solar, radius_au, ORANGE, "Jupiter");
+    return new_orbiting(perihelion,aphelion, mass_solar, radius_au, ORANGE, "Jupiter");
 }
 
 void create_solar_system(sim_t *sim) {
