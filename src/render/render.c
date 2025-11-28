@@ -1,7 +1,34 @@
 #include "render.h"
 #include "raylib.h"
+#include "space/body.h"
 #include "space/solar_system.h"
 
+void draw_trail(body_t *b, float AU_TO_PIXELS, Vector2 center) {
+
+    if(b->trail_filled < 2 ) return;
+
+    for (int i = 0; i < b->trail_filled - 1; i++) {
+
+        int index1 = (b->trail_index + i) % TRAIL_LENGTH;
+        int index2 = (b->trail_index + i + 1) % TRAIL_LENGTH;
+ 
+        Vector2 p1 = b->trail[index1];
+        Vector2 p2 = b->trail[index2];
+
+        if (p1.x == p2.x && p1.y == p2.y) {
+            continue;
+        }
+        Color c = b->color;
+        c.a = 255 * (float)i / TRAIL_LENGTH;
+        DrawLineV((Vector2){p1.x * AU_TO_PIXELS + center.x,
+                            p1.y * AU_TO_PIXELS + center.y},
+                  (Vector2){p2.x * AU_TO_PIXELS + center.x,
+                            p2.y * AU_TO_PIXELS + center.y},
+                  c);
+    }
+}
+
+void draw_trjectory(body_t *b) {}
 void draw_sim(sim_t *sim) {
 
     const float AU_TO_PIXELS = 100.0f;
@@ -27,5 +54,6 @@ void draw_sim(sim_t *sim) {
         }
 
         DrawCircleV(screen_pos, radius, b->color);
+        draw_trail(b, AU_TO_PIXELS, center);
     }
 }

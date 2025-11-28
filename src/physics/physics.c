@@ -61,11 +61,10 @@ void apply_physics(sim_t *sim, double frame_dt) {
             sim->bodies[j]->acc.x += ax_j;
             sim->bodies[j]->acc.y += ay_j;
 
-            if (j == 3) {
-                printf("Moon vel_X: %f\n", sim->bodies[j]->vel.x);
-                printf("Moon vel_Y: %f\n", sim->bodies[j]->vel.y);
-            }
-
+            // if (j == 3) {
+            //     printf("Moon vel_X: %f\n", sim->bodies[j]->vel.x);
+            //     printf("Moon vel_Y: %f\n", sim->bodies[j]->vel.y);
+            // }
         }
     }
 
@@ -83,5 +82,12 @@ void apply_physics(sim_t *sim, double frame_dt) {
         // xPos = xPos + vel * dt
         b->pos.x += b->vel.x * dt;
         b->pos.y += b->vel.y * dt;
+        if (i != 0) {
+            b->trail[b->trail_index] = b->pos;
+            b->trail_index = (b->trail_index + 1) % TRAIL_LENGTH;
+            if(b->trail_filled < TRAIL_LENGTH){
+                b->trail_filled++;
+            }
+        }
     }
 }

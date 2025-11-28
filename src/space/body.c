@@ -18,6 +18,7 @@ body_t *new(Vector2 pos, Vector2 vel, Vector2 acc, float mass, float radius,
     body->radius = radius;
     body->color = color;
     body->name = name;
+    body->trail_filled = 0;
 
     return body;
 }
@@ -56,6 +57,13 @@ body_t *new_orbiting_child(body_t *parent, Vector2 perihelion, Vector2 aphelion,
 
     // start at perihelion
     obj->pos = perihelion;
+
+    // fill the positions of the trail with the initial pos of the object
+    for(int i = 0; i < TRAIL_LENGTH; i++){
+        obj->trail[i] = obj->pos;
+    }
+    obj->trail_index = 0;
+    obj->trail_filled = 1;
 
     // tangential velocity using vis-viva
     float v = sqrtf(G * parent->mass * (2.0f / r_peri - 1.0f / a));
