@@ -61,10 +61,10 @@ void apply_physics(sim_t *sim, double frame_dt) {
             sim->bodies[j]->acc.x += ax_j;
             sim->bodies[j]->acc.y += ay_j;
 
-            if (j == 1) {
-                printf("Jupiter accX: %f\n", sim->bodies[j]->vel.x);
-                printf("Jupiter accY: %f\n", sim->bodies[j]->vel.y);
-            }
+            // if (j == 1) {
+            //     printf("Jupiter vecX: %f\n", sim->bodies[j]->vel.x);
+            //     printf("Jupiter vecY: %f\n", sim->bodies[j]->vel.y);
+            // }
 
         }
     }
