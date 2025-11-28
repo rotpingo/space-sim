@@ -4,7 +4,7 @@
 
 void draw_sim(sim_t *sim) {
 
-    const float AU_TO_PIXELS = 200.0f;
+    const float AU_TO_PIXELS = 100.0f;
 
     float render_scale = 25.0f;
     Vector2 center = {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
@@ -23,7 +23,7 @@ void draw_sim(sim_t *sim) {
             // radius = 38.0f * 18.0f;
             radius = b->radius * AU_TO_PIXELS * render_scale;
         } else {
-            radius = b->radius * AU_TO_PIXELS * render_scale * 5;
+            radius = b->radius * AU_TO_PIXELS * render_scale;
         }
 
         DrawCircleV(screen_pos, radius, b->color);
