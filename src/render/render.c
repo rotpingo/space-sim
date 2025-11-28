@@ -21,7 +21,7 @@ void draw_sim(sim_t *sim) {
 
         if (i == 0) {
             // radius = 38.0f * 18.0f;
-            radius = b->radius * AU_TO_PIXELS * render_scale;
+            radius = b->radius * AU_TO_PIXELS * 10.0f;
         } else {
             radius = b->radius * AU_TO_PIXELS * render_scale;
         }
