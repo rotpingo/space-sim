@@ -82,10 +82,11 @@ void apply_physics(sim_t *sim, double frame_dt) {
         // xPos = xPos + vel * dt
         b->pos.x += b->vel.x * dt;
         b->pos.y += b->vel.y * dt;
-        if (i != 0) {
-            b->trail[b->trail_index] = b->pos;
+        if (i != 0 && b->parent != NULL) {
+            b->trail[b->trail_index] = (Vector2){b->pos.x - b->parent->pos.x,
+                                                 b->pos.y - b->parent->pos.y};
             b->trail_index = (b->trail_index + 1) % TRAIL_LENGTH;
-            if(b->trail_filled < TRAIL_LENGTH){
+            if (b->trail_filled < TRAIL_LENGTH) {
                 b->trail_filled++;
             }
         }

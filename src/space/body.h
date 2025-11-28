@@ -2,21 +2,22 @@
 
 #include "raylib.h"
 
-#define TRAIL_LENGTH 360
+#define TRAIL_LENGTH 180
 
-typedef struct {
+typedef struct body_t {
     Vector2 pos;
     Vector2 vel;
     Vector2 acc;
     Vector2 aphelion;
     Vector2 perihelion;
-    Vector2 trail[TRAIL_LENGTH]; // 1 value = 1°, param for drawing the trail/history of the body movement
+    Vector2 trail[TRAIL_LENGTH]; 
     int trail_index;
     int trail_filled;
-    Vector2 trajectory[TRAIL_LENGTH]; // 1 value = 1°, param for drawing the trajectory of the body movement
+    Vector2 trajectory[TRAIL_LENGTH]; 
     float mass;
     float radius;
     Color color;
+    struct body_t *parent;
     const char *name;
 } body_t;
 

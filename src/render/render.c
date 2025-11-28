@@ -5,21 +5,28 @@
 
 void draw_trail(body_t *b, float AU_TO_PIXELS, Vector2 center) {
 
-    if(b->trail_filled < 2 ) return;
+    if (b->trail_filled < 2)
+        return;
 
     for (int i = 0; i < b->trail_filled - 1; i++) {
 
         int index1 = (b->trail_index + i) % TRAIL_LENGTH;
         int index2 = (b->trail_index + i + 1) % TRAIL_LENGTH;
- 
+
         Vector2 p1 = b->trail[index1];
         Vector2 p2 = b->trail[index2];
 
-        if (p1.x == p2.x && p1.y == p2.y) {
-            continue;
-        }
+        // if (p1.x == p2.x && p1.y == p2.y) {
+        //     continue;
+        // }
+
+        p1.x += b->parent->pos.x;
+        p1.y += b->parent->pos.y;
+        p2.x += b->parent->pos.x;
+        p2.y += b->parent->pos.y;
+
         Color c = b->color;
-        c.a = 255 * (float)i / TRAIL_LENGTH;
+        c.a = 200 * (float)i / TRAIL_LENGTH;
         DrawLineV((Vector2){p1.x * AU_TO_PIXELS + center.x,
                             p1.y * AU_TO_PIXELS + center.y},
                   (Vector2){p2.x * AU_TO_PIXELS + center.x,

@@ -11,6 +11,7 @@ body_t *new(Vector2 pos, Vector2 vel, Vector2 acc, float mass, float radius,
         return NULL;
     }
 
+    body->parent = NULL;
     body->pos = pos;
     body->vel = vel;
     body->acc = acc;
@@ -35,6 +36,7 @@ body_t *new_orbiting_child(body_t *parent, Vector2 perihelion, Vector2 aphelion,
         return NULL;
     }
 
+    obj->parent = parent;
     obj->perihelion = perihelion;
     obj->aphelion = aphelion;
     obj->mass = mass;
